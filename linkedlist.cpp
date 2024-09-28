@@ -71,7 +71,6 @@ public:
         Node<T>* p = head;
         for (; p && comparator(p->data, v); pos = p, p = p->next);
         if (p && p->data == v) {
-            cout<<"p:"<<p->data;
             return true;
         }
         return false;
@@ -89,7 +88,6 @@ public:
 
     void del(T v) {
         Node<T>* pos;
-        cout<<"find:"<<find(v, pos)<<"\n";
         if (find(v, pos)) {
             if (pos == nullptr) {
                 Node<T>* temp = head;
