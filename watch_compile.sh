@@ -7,10 +7,12 @@ YELLOW='\033[1;33m'
 NC='\033[0m' # Sin color
 
 # Ruta del archivo o archivos que deseas monitorear
-WATCHED_FILES="*.cpp"
+# WATCHED_FILES="*.cpp"
+WATCHED_FILES="linkedlist.cpp"
 
 # Comando para compilar
-COMPILE_CMD="g++ -o output_program *.cpp"
+# COMPILE_CMD="g++ -o output_program *.cpp"
+COMPILE_CMD="g++ -o output_program linkedlist.cpp"
 
 # Monitorea cambios en los archivos
 while inotifywait -e close_write $WATCHED_FILES; do
