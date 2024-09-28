@@ -91,7 +91,6 @@ public:
                 }
             }
             pos = p;
-
             p = p->next;
         }
         return false;
