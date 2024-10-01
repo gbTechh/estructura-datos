@@ -96,25 +96,72 @@ public:
         return false;
     }
 
+    bool find2(T v, NodeArray<T>*& pos, int& insertIndex) {
+            pos = nullptr;
+            if (!head) return false;
+            NodeArray<T>* p = head;
+            while (p != nullptr) {
+                for (int i = 0; i < p->index; i++) {
+                    if (p->data[i] == v) {
+                        return true; // Elemento encontrado
+                    }
+                    if (comparator(v, p->data[i])) {
+                        // Encontramos la posición de inserción
+                        pos = p;
+                        insertIndex = i;
+                        return false;
+                    }
+                }
+                if (p->index < 5) {
+                    pos = p;
+                    insertIndex = p->index;
+                    return false;
+                }
+                pos = p;
+                p = p->next;
+            }
+            // Si llegamos aquí, insertamos al final del último nodo
+            insertIndex = pos->index;
+            return false;
+        }
+
+
+    // bool findDel(T v, NodeArray<T>* &pos) {
+    //     pos = nullptr;
+    //     NodeArray<T>* p = head;
+    //     //agregar al data un index y aumentar el index para q itere y biusque el elemento
+    //     for (; p && comparator(p->data[], v); pos = p, p = p->next);
+    //     if (p && p->data == v) {
+    //         return true;
+    //     }
+    //     return false;
+
+    // }
+
     void del(T v) {
         NodeArray<T>* pos;
         cout<<"find:"<<find(v, pos)<<"\n";
-        if (find(v, pos)) {
-            if (pos == nullptr) {
-                NodeArray<T>* temp = head;
-                head = head->next;
-                delete temp;
-            }
-            else {
-                NodeArray<T>* temp = pos->next;
-                pos->next = temp->next;
-                delete temp;
-            }
-            cout << "Elemento " << v << " eliminado.\n";
-        }
-        else {
-            cout << "Elemento " << v << " no encontrado.\n";
-        }
+        cout<<"value: "<<v<<"\n";
+        // for(int i = 0; i < 5; i++){
+        //     cout<<"POS: "<<pos->next->data[i]<<"\n";
+        // }
+
+        // if (find(v, pos)) {
+        //     if (pos->next == nullptr) {
+        //         NodeArray<T>* temp = head;
+        //         head = head->next;
+        //         delete temp;
+        //     }
+        //     else {
+        //         NodeArray<T>* temp = pos->next;
+        //         pos->next = temp->next;
+        //         delete temp;
+        //     }
+        //     cout << "Elemento " << v << " eliminado.\n";
+        // }
+        // else {
+        //     cout << "Elemento " << v << " no encontrado.\n";
+        // }
     }
     void print() {
         NodeArray<T>* current = head;
@@ -144,27 +191,18 @@ int main()
 
     LinkedListArray<int, ASC<int>> listAsc;
 
-    for (int i = 10; i >= 0; i--) {
-        listAsc.add(i);
-
-    }
-
-
-
-
-
-
+    listAsc.add(6);
+    listAsc.add(5);
+    listAsc.add(4);
+    listAsc.add(3);
+    listAsc.add(2);
+    listAsc.add(1);
+    listAsc.add(0);
 
 
     cout << "\nLista ascendente: ";
     listAsc.print();
-    cout<<"\nLEN: "<<listAsc.len<<"\n";
 
-
-
-    int len = 2;
-    nodo: cout<<len/5<<"\n";
-    idnex: cout<<len%5<<"\n";
 
 
 }

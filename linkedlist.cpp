@@ -38,22 +38,6 @@ public:
     LinkedList() : head(nullptr) {}
 
     void add(T v) {
-        /*Node<T>* newNode = new Node<T>(v);
-
-        if (head == nullptr || comparator(head->data, v)) {
-            newNode->next = head;
-            head = newNode;
-            return;
-        }
-
-        Node<T>* pos = nullptr;
-        if (find(v, pos)) {
-            delete newNode;
-            return;
-        }
-
-        newNode->next = pos->next;
-        pos->next = newNode;*/
         Node<T>* pos = nullptr;
         if (!find(v, pos))
         {
@@ -66,7 +50,7 @@ public:
 
 
     bool find(T v, Node<T>*& pos) {
-        //Node<T>* current = null;//head;
+
         pos = nullptr;
         Node<T>* p = head;
         for (; p && comparator(p->data, v); pos = p, p = p->next);
@@ -74,16 +58,6 @@ public:
             return true;
         }
         return false;
-
-        /*while (current != nullptr && !comparator(current->data, v)) {
-            if (current->data == v) {
-                return true;
-            }
-            pos = current;
-            current = current->next;
-        }
-
-        return false;*/
     }
 
     void del(T v) {
