@@ -25,19 +25,22 @@ class Stack {
             top = newNode;
         }
         bool pop(T &v) {
-            Node<T>* p = top;
-            while(p->data != v){
-                p = p->next;
+            if(top) {
+                Node<T>* temp = top;
+                v  = temp->data;
+                top = top->next;
+                delete temp;
+                return true;
             }
             return false;
         }
-        void poping() {
-            if(top) {
-                Node<T>* temp = top;
-                top = top->next;
-                delete temp;
-            }
-        }
+        // void poping() {
+        //     if(top) {
+        //         Node<T>* temp = top;
+        //         top = top->next;
+        //         delete temp;
+        //     }
+        // }
         void print() {
             Node<T>* current = top;
             cout << "top->";
@@ -56,16 +59,17 @@ int main () {
     Stack<int> stack;
     stack.print();
 
-    stack.push(1);
-    stack.push(2);
     stack.push(3);
-    stack.push(4);
+    stack.push(1);
     stack.push(5);
+    stack.push(7);
+    stack.push(9);
 
-
+    int x = 0;
     stack.print();
-    stack.poping();
+    stack.pop(x);
     stack.print();
+    cout<<"valor borrado: "<<x<<"\n";
 
 
 
