@@ -23,7 +23,6 @@ struct NodeArray {
     T data[5];
     int index = 0;
     NodeArray<T>* next;
-    T *ptr = data;
     NodeArray(T v, NodeArray<T>* n = nullptr) {
         add(v);
         next = n;
@@ -31,17 +30,12 @@ struct NodeArray {
 
     void add(T v) {
         if (index < 5) {
-            *ptr = v;
-            ptr++;
-            index++;
-
-        } else {
-            index = 0;
-            ptr = &data[index];
+            data[index++] = v;
+        }
+        else {
             throw runtime_error("Node is full");
         }
     }
-
 };
 
 
@@ -53,6 +47,7 @@ private:
 
 public:
     int len = 0;
+    int index = 0;
     LinkedListArray() : head(nullptr) {}
 
     void add(T v) {
@@ -60,31 +55,35 @@ public:
         if (!find(v, pos)) {
             if (!head) {
                 head = new NodeArray<T>(v);
-            } else if (pos->next == nullptr) {
+            }
+            else if (pos->next == nullptr) {
                 if (pos->index < 5) {
                     pos->add(v);
-                } else {
+                }
+                else {
                     pos->next = new NodeArray<T>(v, pos->next);
                 }
-            } else {
+            }
+            else {
                 pos->add(v);
             }
             len++;
         }
     }
 
-    bool find(T &v, NodeArray<T>*& pos) {
+    bool find(T& v, NodeArray<T>*& pos, bool isDelete = false) {
         pos = nullptr;
         if (!head) return false;
-
         NodeArray<T>* p = head;
         while (p != nullptr) {
             for (int i = 0; i < p->index; i++) {
                 if (p->data[i] == v) {
+                    index = i;
+                    pos = p;
                     return true;
                 }
                 //ASC: a < b
-                if(!comparator(p->data[i], v)) {
+                if (!comparator(p->data[i], v) && !isDelete) {
                     T cp = p->data[i];
                     p->data[i] = v;
                     v = cp;
@@ -96,77 +95,35 @@ public:
         return false;
     }
 
-    bool find2(T v, NodeArray<T>*& pos, int& insertIndex) {
-            pos = nullptr;
-            if (!head) return false;
-            NodeArray<T>* p = head;
-            while (p != nullptr) {
-                for (int i = 0; i < p->index; i++) {
-                    if (p->data[i] == v) {
-                        return true; // Elemento encontrado
-                    }
-                    if (comparator(v, p->data[i])) {
-                        // Encontramos la posición de inserción
-                        pos = p;
-                        insertIndex = i;
-                        return false;
+    void del(T &v) {
+        NodeArray<T>* pos = nullptr;
+        NodeArray<T>* current = nullptr;
+        NodeArray<T>* p = head;
+        if (find(v, pos, true)) {
+            while (pos != nullptr) {
+                for (int i = index; i < pos->index; i++) {
+                    if(i == 4){
+                        pos->data[i] = pos->next->data[0];
+                        index = 0;
+                    } else {
+                        pos->data[i] = pos->data[i+1];
                     }
                 }
-                if (p->index < 5) {
-                    pos = p;
-                    insertIndex = p->index;
-                    return false;
+                if(pos->next == nullptr){
+                    current = pos;
                 }
-                pos = p;
-                p = p->next;
+                pos = pos->next;
             }
-            // Si llegamos aquí, insertamos al final del último nodo
-            insertIndex = pos->index;
-            return false;
+            current->index = current->index - 1;
+            len--;
         }
-
-
-    // bool findDel(T v, NodeArray<T>* &pos) {
-    //     pos = nullptr;
-    //     NodeArray<T>* p = head;
-    //     //agregar al data un index y aumentar el index para q itere y biusque el elemento
-    //     for (; p && comparator(p->data[], v); pos = p, p = p->next);
-    //     if (p && p->data == v) {
-    //         return true;
-    //     }
-    //     return false;
-
-    // }
-
-    void del(T v) {
-        NodeArray<T>* pos;
-        cout<<"find:"<<find(v, pos)<<"\n";
-        cout<<"value: "<<v<<"\n";
-        // for(int i = 0; i < 5; i++){
-        //     cout<<"POS: "<<pos->next->data[i]<<"\n";
-        // }
-
-        // if (find(v, pos)) {
-        //     if (pos->next == nullptr) {
-        //         NodeArray<T>* temp = head;
-        //         head = head->next;
-        //         delete temp;
-        //     }
-        //     else {
-        //         NodeArray<T>* temp = pos->next;
-        //         pos->next = temp->next;
-        //         delete temp;
-        //     }
-        //     cout << "Elemento " << v << " eliminado.\n";
-        // }
-        // else {
-        //     cout << "Elemento " << v << " no encontrado.\n";
-        // }
+        else {
+            cout << "Elemento no encontrado\n";
+        }
     }
     void print() {
         NodeArray<T>* current = head;
         cout << "[head]";
-        int nodeCount = 0;
         while (current != nullptr) {
             cout << " -> [";
             for (int i = 0; i < current->index; i++) {
@@ -174,33 +131,58 @@ public:
                 if (i < current->index - 1) {
                     cout << ", ";
                 }
+
+            }
+            if(current->index < 5)  {
+                for(int j = current->index; j < 5; j ++){
+                    cout<<", _";
+                }
             }
             cout << "]";
             current = current->next;
-            nodeCount++;
         }
         cout << " -> [nullptr]" << endl;
     }
 
 };
 
-// *
-// 1 -> 2 -> 3 -> 4
+
 int main()
 {
 
     LinkedListArray<int, ASC<int>> listAsc;
 
+    listAsc.add(15);
+    listAsc.add(13);
+    listAsc.add(12);
+    listAsc.add(11);
+    listAsc.add(10);
+    listAsc.add(9);
+    listAsc.add(8);
+    listAsc.add(7);
     listAsc.add(6);
-    listAsc.add(5);
     listAsc.add(4);
     listAsc.add(3);
     listAsc.add(2);
     listAsc.add(1);
-    listAsc.add(0);
-
 
     cout << "\nLista ascendente: ";
+    listAsc.print();
+    cout << "\nLista ascendente: ";
+
+    listAsc.add(20);
+    listAsc.add(21);
+    listAsc.add(22);
+    listAsc.add(23);
+    listAsc.add(24);
+    listAsc.add(25);
+    listAsc.print();
+
+    int x = 4;
+    listAsc.del(x);
+    x = 1;
+    listAsc.del(x);
+
     listAsc.print();
 
 
