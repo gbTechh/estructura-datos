@@ -28,7 +28,7 @@ public:
 
     CList () : head(nullptr), tail(nullptr) {}
 
-    T operator[](int index){
+    T& operator[](int index){
         if(index >= len) {
             throw out_of_range("Indice fuera del rango");
         }
