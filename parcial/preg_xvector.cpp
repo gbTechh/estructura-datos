@@ -35,15 +35,15 @@ int main()
 {
     //no modificar esta función main
     XVector v(4,3);
-    // v.push_back(3); v.push_back(8); v.push_back(1);
-    // v.push_back(4); v.push_back(9); v.push_back(6);
-    // v.push_back(7);
-    // print(&v);
-    // v.push_front(5); v.push_front(2);
-    // print(&v);
-    // v.push_front(11); v.push_front(17);
-    // v.push_back(22);
-    // print(&v);
-    // v.push_front(33); v.push_back(77);
+    v.push_back(3); v.push_back(8); v.push_back(1);
+    v.push_back(4); v.push_back(9); v.push_back(6);
+    v.push_back(7);
+    print(&v);
+    v.push_front(5); v.push_front(2);
+    print(&v);
+    v.push_front(11); v.push_front(17);
+    v.push_back(22);
+    print(&v);
+    v.push_front(33); v.push_back(77);
     print(&v);
 }
