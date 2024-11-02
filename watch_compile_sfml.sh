@@ -12,7 +12,7 @@ WATCHED_FILES="./part2/tree-sfml.cpp"
 
 # Comando para compilar
 # COMPILE_CMD="g++ -o output_program *.cpp"
-COMPILE_CMD="g++ -o output_program ./part2/tree-sfml.cpp"
+COMPILE_CMD="g++ -o output_program ./part2/tree-sfml.cpp -lsfml-graphics -lsfml-window -lsfml-system"
 
 # Monitorea cambios en los archivos
 while inotifywait -e close_write $WATCHED_FILES; do
