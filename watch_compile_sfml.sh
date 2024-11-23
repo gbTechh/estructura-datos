@@ -8,11 +8,11 @@ NC='\033[0m' # Sin color
 
 # Ruta del archivo o archivos que deseas monitorear
 # WATCHED_FILES="*.cpp"
-WATCHED_FILES="./part2/tree-sfml.cpp"
+WATCHED_FILES="./part2/tree-avl-sfml.cpp"
 
 # Comando para compilar
 # COMPILE_CMD="g++ -o output_program *.cpp"
-COMPILE_CMD="g++ -o output_program ./part2/tree-sfml.cpp -lsfml-graphics -lsfml-window -lsfml-system"
+COMPILE_CMD="g++ -o output_program ./part2/tree-avl-sfml.cpp -lsfml-graphics -lsfml-window -lsfml-system"
 
 # Monitorea cambios en los archivos
 while inotifywait -e close_write $WATCHED_FILES; do
