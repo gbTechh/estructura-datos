@@ -24,15 +24,14 @@ private:
         brep = !brep;
         return q;
     }
-
-public:
     bool find(T v,Node<T>**&p) {
         for(p = &root;
-        *p && (*p)->data != v;
-        p = &((*p)->nodes[(*p)->data < v])
+           *p && (*p)->data != v;
+           p = &((*p)->nodes[(*p)->data < v])
         );
         return *p != 0;
     }
+public:
     Node<T> * root;
     CBinTree(){
         root = 0;
