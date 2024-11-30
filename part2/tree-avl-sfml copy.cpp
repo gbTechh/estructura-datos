@@ -1,4 +1,4 @@
-/*TAREA TREE AVL SFML */
+
 #include <iostream>
 #include <queue>
 using namespace std;
@@ -233,4 +233,3 @@ int main() {
     tree.levelOrderTraversalWithHeight();
     return 0;
 }
-/*FIN TAREA TREE AVL SFML */
