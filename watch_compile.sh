@@ -8,11 +8,11 @@ NC='\033[0m' # Sin color
 
 # Ruta del archivo o archivos que deseas monitorear
 # WATCHED_FILES="*.cpp"
-WATCHED_FILES="./part2/tareas/avl-tree.cpp"
+WATCHED_FILES="./part2/tareas/disjkstra.cpp"
 
 # Comando para compilar
 # COMPILE_CMD="g++ -o output_program *.cpp"
-COMPILE_CMD="g++ -o output_program ./part2/tareas/avl-tree.cpp"
+COMPILE_CMD="g++ -o output_program ./part2/tareas/disjkstra.cpp"
 
 # Monitorea cambios en los archivos
 while inotifywait -e close_write $WATCHED_FILES; do
